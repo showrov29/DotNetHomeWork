@@ -15,7 +15,12 @@ namespace HomeWork2.CustomValidatior
                 DateTime dob = DateTime.Parse(value.ToString());
                 var bd = new DateTime(2022, 1, 1);
                 int age = (int)((bd - dob).TotalDays / 365.24);
-                return  ValidationResult.Success;
+                if (age >= 18)
+                {
+                    return ValidationResult.Success;
+
+                }
+               
 
             }
             return new ValidationResult("Age is under 18");
