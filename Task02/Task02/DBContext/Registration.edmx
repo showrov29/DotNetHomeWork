@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BishopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PreReq" Type="int" />
+        </EntityType>
+        <EntityType Name="CourseStudents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="courseId" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="grade" Type="varchar" MaxLength="50" />
+          <Property Name="marks" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cgpa" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CourseStudents_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CourseStudents">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseStudents_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="CourseStudents" Type="Self.CourseStudents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CourseStudents">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BishopModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseStudents" EntityType="Self.CourseStudents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CourseStudents_Courses" Association="Self.FK_CourseStudents_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseStudents" EntitySet="CourseStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseStudents_Students" Association="Self.FK_CourseStudents_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="CourseStudents" EntitySet="CourseStudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BishopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PreReq" Type="Int32" />
+          <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Courses" FromRole="Courses" ToRole="CourseStudents" />
+        </EntityType>
+        <EntityType Name="CourseStudent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="courseId" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="marks" Type="Int32" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK_CourseStudents_Courses" FromRole="CourseStudents" ToRole="Courses" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_CourseStudents_Students" FromRole="CourseStudents" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cgpa" Type="Double" Nullable="false" />
+          <NavigationProperty Name="CourseStudents" Relationship="Self.FK_CourseStudents_Students" FromRole="Students" ToRole="CourseStudents" />
+        </EntityType>
+        <Association Name="FK_CourseStudents_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+          <End Role="CourseStudents" Type="Self.CourseStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CourseStudents">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseStudents_Students">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="CourseStudents" Type="Self.CourseStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CourseStudents">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Bishop_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="CourseStudents" EntityType="Self.CourseStudent" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_CourseStudents_Courses" Association="Self.FK_CourseStudents_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseStudents" EntitySet="CourseStudents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseStudents_Students" Association="Self.FK_CourseStudents_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="CourseStudents" EntitySet="CourseStudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BishopModelStoreContainer" CdmEntityContainer="Bishop_Entities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="BishopModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PreReq" ColumnName="PreReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseStudents">
+            <EntityTypeMapping TypeName="BishopModel.CourseStudent">
+              <MappingFragment StoreEntitySet="CourseStudents">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="marks" ColumnName="marks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BishopModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="BishopModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Cgpa" ColumnName="Cgpa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

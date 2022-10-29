@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BishopModelStoreContainer" CdmEntityContainer="Bishop_Entities">
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="BishopModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PreReq" ColumnName="PreReq" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseStudents">
+      <EntityTypeMapping TypeName="BishopModel.CourseStudent">
+        <MappingFragment StoreEntitySet="CourseStudents">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="studentId" ColumnName="studentId" />
+          <ScalarProperty Name="courseId" ColumnName="courseId" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="grade" ColumnName="grade" />
+          <ScalarProperty Name="marks" ColumnName="marks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="BishopModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="BishopModel.Student">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Cgpa" ColumnName="Cgpa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

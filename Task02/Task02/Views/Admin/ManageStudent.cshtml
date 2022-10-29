@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="../../Content/Site.css" rel="stylesheet">
+    <title>AddProduct</title>
+</head>
+<body class="flex flex-col w-screen h-screen bg-[#f0f2f5]">
+    <div class="py-4 bg-[#ffffff] text-white w-full flex items-center justify-center h-24 space-x-5">
+        <a class="py-3 px-4 bg-[#00b843] rounded-lg shadow-xl" href="/Admin/ManageStudent">Manage Student</a>
+        <a class="mr-24 py-3 px-4 bg-[#00b843] rounded-lg shadow-xl" href="/Admin/ManageCourse">Manage Course</a>
+    </div>
+    <div class="w-full h-[500px] flex items-center justify-center mt-10">
+        <form class="w-[90%] h-full" method="post" action="/Admin/ManageStudent">
+            <div class="h-full overflow-y-scroll">
+                <table class="table-fixed border-collapse border border-gray-300 w-full bg-[#ffffff]">
+                    <thead class="text-white bg-[#007aeb] sticky top-0 h-20 shadow-md">
+                        <tr class="">
+                            <th class="border border-gray-300">Student ID</th>
+                            <th class="border border-gray-300">Student Name</th>
+                            <th class="border border-gray-300">CGPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+                                <td class="table-content">@student.id</td>
+                                <td class="table-content">@student.Name</td>
+                                <td class="table-content">@student.Cgpa</td>
+                                <td class="table-content">
+                                    <a class="w-full text-white py-3 px-4 bg-red-400 rounded-lg shadow-xl" href="@Url.Action("Delete", "Admin", new { id = student.id })">Delete</a>
+                                    <a class="w-full text-white py-3 px-4 bg-[#007aeb] rounded-lg shadow-xl" href="@Url.Action("Edit", "Admin", new { id = student.id })">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input class="h-16 pl-2 w-full" placeholder="Enter student name" name="name" /><br />
+                                <span class="text-sm text-red-500">
+                                    @Html.ValidationMessage("name")
+                                </span>
+                            </td>
+                            <td>
+                                <input class="h-16 pl-2 w-full" placeholder="Enter cgpa" name="cgpa" /><br />
+                                <div class="text-sm text-red-500">
+                                    @Html.ValidationMessage("cgpa")
+                                </div>
+                            </td>
+                            <td class="px-4 font-semibold"><button class="text-white w-full py-3 px-4 bg-[#00b843] rounded-lg shadow-xl">ADD</button></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

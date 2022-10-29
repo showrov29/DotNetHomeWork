@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="../../Content/Site.css" rel="stylesheet">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="p-4">
+        <form method="post" action="/User/RegistrationConfirm">
+
+        @foreach (var course in Model)
+        {
+            <div class="flex">
+                <input type="checkbox" name="courses[]" value="@course.id"/>@course.Name
+            </div>
+        }
+        <input type="text" name="studentId" hidden value="@TempData["studentId"]" />
+        <button class="px-6 py-2 bg-blue-600 text-white mt-4 rounded-lg">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

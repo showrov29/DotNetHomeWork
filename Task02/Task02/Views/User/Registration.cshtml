@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="../../Content/Site.css" rel="stylesheet">
+    <title>Registration</title>
+</head>
+<body>
+    <div>
+        @foreach(var student in Model)
+        {
+            <div class="flex p-4 items-center space-x-5">
+                <div>Name: @student.Name</div>
+                <div class="text-white"><a class="inline-block px-6 py-3 bg-blue-600 rounded-lg" href="/User/RegistrationPage/@student.id">Go to registration</a></div>
+            </div>
+        }
+    </div>
+</body>
+</html>
