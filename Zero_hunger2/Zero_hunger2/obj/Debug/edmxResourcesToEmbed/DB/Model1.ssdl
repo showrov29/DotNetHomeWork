@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Zero_HungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accepted">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="ResId" Type="int" Nullable="false" />
+    <Property Name="Nid" Type="int" Nullable="false" />
+    <Property Name="Eid" Type="int" Nullable="false" />
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Zero_Hunger.dbo.Colleact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Colleact">
+    <Key>
+      <PropertyRef Name="ResId" />
+      <PropertyRef Name="PreTime" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="ResId" Type="int" Nullable="false" />
+    <Property Name="PreTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nid" Type="int" />
+  </EntityType>
+  <EntityType Name="NGO">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Resturent">
+    <Key>
+      <PropertyRef Name="ResId" />
+    </Key>
+    <Property Name="ResId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Contact" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Accepted_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Accepted">
+        <PropertyRef Name="Eid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Accepted_NGO">
+    <End Role="NGO" Type="Self.NGO" Multiplicity="1" />
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Accepted">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Colleact_Accepted">
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="1" />
+    <End Role="Colleact" Type="Self.Colleact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accepted">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="Colleact">
+        <PropertyRef Name="ResId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Colleact_Resturent">
+    <End Role="Resturent" Type="Self.Resturent" Multiplicity="1" />
+    <End Role="Colleact" Type="Self.Colleact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resturent">
+        <PropertyRef Name="ResId" />
+      </Principal>
+      <Dependent Role="Colleact">
+        <PropertyRef Name="ResId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_NGO">
+    <End Role="NGO" Type="Self.NGO" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Zero_HungerModelStoreContainer">
+    <EntitySet Name="Accepted" EntityType="Self.Accepted" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NGO" EntityType="Self.NGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resturent" EntityType="Self.Resturent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Colleact" EntityType="Self.Colleact" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Colleact].[ResId] AS [ResId], 
+    [Colleact].[PreTime] AS [PreTime], 
+    [Colleact].[Status] AS [Status]
+    FROM [dbo].[Colleact] AS [Colleact]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Accepted_Employee" Association="Self.FK_Accepted_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Accepted" EntitySet="Accepted" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Accepted_NGO" Association="Self.FK_Accepted_NGO">
+      <End Role="NGO" EntitySet="NGO" />
+      <End Role="Accepted" EntitySet="Accepted" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Colleact_Accepted" Association="Self.FK_Colleact_Accepted">
+      <End Role="Accepted" EntitySet="Accepted" />
+      <End Role="Colleact" EntitySet="Colleact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Colleact_Resturent" Association="Self.FK_Colleact_Resturent">
+      <End Role="Resturent" EntitySet="Resturent" />
+      <End Role="Colleact" EntitySet="Colleact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_NGO" Association="Self.FK_Employee_NGO">
+      <End Role="NGO" EntitySet="NGO" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

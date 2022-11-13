@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Zero_HungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Accepted">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="ResId" Type="Int32" Nullable="false" />
+    <Property Name="Nid" Type="Int32" Nullable="false" />
+    <Property Name="Eid" Type="Int32" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Accepted_Employee" FromRole="Accepted" ToRole="Employee" />
+    <NavigationProperty Name="NGO" Relationship="Self.FK_Accepted_NGO" FromRole="Accepted" ToRole="NGO" />
+    <NavigationProperty Name="Colleacts" Relationship="Self.FK_Colleact_Accepted" FromRole="Accepted" ToRole="Colleact" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nid" Type="Int32" />
+    <NavigationProperty Name="Accepteds" Relationship="Self.FK_Accepted_Employee" FromRole="Employee" ToRole="Accepted" />
+    <NavigationProperty Name="NGO" Relationship="Self.FK_Employee_NGO" FromRole="Employee" ToRole="NGO" />
+  </EntityType>
+  <EntityType Name="NGO">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Accepteds" Relationship="Self.FK_Accepted_NGO" FromRole="NGO" ToRole="Accepted" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_NGO" FromRole="NGO" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Resturent">
+    <Key>
+      <PropertyRef Name="ResId" />
+    </Key>
+    <Property Name="ResId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Colleacts" Relationship="Self.FK_Colleact_Resturent" FromRole="Resturent" ToRole="Colleact" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Colleact">
+    <Key>
+      <PropertyRef Name="ResId" />
+      <PropertyRef Name="PreTime" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="ResId" Type="Int32" Nullable="false" />
+    <Property Name="PreTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Accepted" Relationship="Self.FK_Colleact_Accepted" FromRole="Colleact" ToRole="Accepted" />
+    <NavigationProperty Name="Resturent" Relationship="Self.FK_Colleact_Resturent" FromRole="Colleact" ToRole="Resturent" />
+  </EntityType>
+  <Association Name="FK_Accepted_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Accepted">
+        <PropertyRef Name="Eid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Accepted_NGO">
+    <End Role="NGO" Type="Self.NGO" Multiplicity="1" />
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Accepted">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Colleact_Accepted">
+    <End Role="Accepted" Type="Self.Accepted" Multiplicity="1" />
+    <End Role="Colleact" Type="Self.Colleact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accepted">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="Colleact">
+        <PropertyRef Name="ResId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_NGO">
+    <End Role="NGO" Type="Self.NGO" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Colleact_Resturent">
+    <End Role="Resturent" Type="Self.Resturent" Multiplicity="1" />
+    <End Role="Colleact" Type="Self.Colleact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resturent">
+        <PropertyRef Name="ResId" />
+      </Principal>
+      <Dependent Role="Colleact">
+        <PropertyRef Name="ResId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Zero_HungerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accepteds" EntityType="Self.Accepted" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="NGOes" EntityType="Self.NGO" />
+    <EntitySet Name="Resturents" EntityType="Self.Resturent" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Colleacts" EntityType="Self.Colleact" />
+    <AssociationSet Name="FK_Accepted_Employee" Association="Self.FK_Accepted_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Accepted" EntitySet="Accepteds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Accepted_NGO" Association="Self.FK_Accepted_NGO">
+      <End Role="NGO" EntitySet="NGOes" />
+      <End Role="Accepted" EntitySet="Accepteds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Colleact_Accepted" Association="Self.FK_Colleact_Accepted">
+      <End Role="Accepted" EntitySet="Accepteds" />
+      <End Role="Colleact" EntitySet="Colleacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_NGO" Association="Self.FK_Employee_NGO">
+      <End Role="NGO" EntitySet="NGOes" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Colleact_Resturent" Association="Self.FK_Colleact_Resturent">
+      <End Role="Resturent" EntitySet="Resturents" />
+      <End Role="Colleact" EntitySet="Colleacts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

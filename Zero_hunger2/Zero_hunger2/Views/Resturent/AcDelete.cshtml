@@ -1,0 +1,56 @@
+﻿@model Zero_hunger2.DB.Accepted
+
+@{
+    ViewBag.Title = "AcDelete";
+}
+
+<h2>AcDelete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Accepted</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ResId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Eid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "AcceptHistory")
+        </div>
+    }
+</div>

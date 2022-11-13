@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Zero_hunger2.DB.Colleact>
+
+@{
+    ViewBag.Title = "CollectRec";
+}
+
+<h2>CollectRec</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddCollReq")
+</p>
+<table class="table">
+    <tr>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.PreTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.PreTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CollEdit", new { id = item.ResId }) |
+          
+            @Html.ActionLink("Delete", "CollDelete", new { id = item.ResId })
+        </td>
+    </tr>
+}
+
+</table>
