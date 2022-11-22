@@ -1,0 +1,10 @@
+C:\Users\Atif\source\repos\BloodDonation\DAL\bin\Debug\DAL.dll
+C:\Users\Atif\source\repos\BloodDonation\DAL\bin\Debug\DAL.pdb
+C:\Users\Atif\source\repos\BloodDonation\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\Atif\source\repos\BloodDonation\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Atif\source\repos\BloodDonation\DAL\obj\Debug\DAL.dll
+C:\Users\Atif\source\repos\BloodDonation\DAL\obj\Debug\DAL.pdb
+C:\Users\Atif\source\repos\BloodDonation\DAL\bin\Debug\DAL.dll.config
+C:\Users\Atif\source\repos\BloodDonation\DAL\bin\Debug\EntityFramework.dll
+C:\Users\Atif\source\repos\BloodDonation\DAL\bin\Debug\EntityFramework.xml
+C:\Users\Atif\source\repos\BloodDonation\DAL\obj\Debug\DAL.csproj.CopyComplete
